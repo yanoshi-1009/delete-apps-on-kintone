@@ -18,10 +18,13 @@ module.exports = class Page {
   async login() {
     await this.page.goto(`https://${this.subdomain}.cybozu.com/k/`);
     console.log(`${new Date().toLocaleString()} Waiting Login`);
-    await this.page.waitForURL(`https://${this.subdomain}.cybozu.com/k/`, {
-      timeout: 1000 * 60 * 5,
-      waitUntil: "domcontentloaded"
-    });
+    await this.page.waitForURL(
+      `https://${this.subdomain}.cybozu.com/k/#/portal`,
+      {
+        timeout: 1000 * 60 * 5,
+        waitUntil: "domcontentloaded"
+      }
+    );
   }
 
   async deleteApps(startId, endId) {
@@ -36,8 +39,13 @@ module.exports = class Page {
       );
       await this.page.click(".gaia-ui-dialog-button-danger", { strict: true });
       await this.page.click(".gaia-ui-dialog-button-danger", { strict: true });
-      console.log(`${new Date().toLocaleString()} Deleted App ${appId}`);
-      await this.page.waitForTimeout(1000);
+      console.log(`${new Date().toLocaleString()} Deleted App:${appId}`);
+      await this.page.waitForURL(
+        `https://${this.subdomain}.cybozu.com/k/#/portal`,
+        {
+          waitUntil: "domcontentloaded"
+        }
+      );
     }
   }
 
