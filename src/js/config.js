@@ -1,5 +1,5 @@
 module.exports = {
   subdomain: "cy-sc",
-  startId: 10,
-  endId: 50
+  startId: 58,
+  endId: 60
 };

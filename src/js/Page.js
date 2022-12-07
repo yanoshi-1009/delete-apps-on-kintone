@@ -19,14 +19,16 @@ module.exports = class Page {
     await this.page.goto(`https://${this.subdomain}.cybozu.com/k/`);
     console.log(`${new Date().toLocaleString()} Waiting Login`);
     await this.page.waitForURL(`https://${this.subdomain}.cybozu.com/k/`, {
-      timeout: 1000 * 60 * 5
+      timeout: 1000 * 60 * 5,
+      waitUntil: "domcontentloaded"
     });
   }
 
   async deleteApps(startId, endId) {
-    for (let i = startId; i <= endId; i++) {
+    for (let appId = startId; appId <= endId; appId++) {
       await this.page.goto(
-        `https://${this.subdomain}.cybozu.com/k/admin/app/flow?app=${i}#section=settings`
+        `https://${this.subdomain}.cybozu.com/k/admin/app/flow?app=${appId}#section=settings`,
+        { waitUntil: "domcontentloaded" }
       );
       if (await this.page.$(".error-container-cybozu")) continue;
       await this.page.click(
@@ -34,7 +36,8 @@ module.exports = class Page {
       );
       await this.page.click(".gaia-ui-dialog-button-danger", { strict: true });
       await this.page.click(".gaia-ui-dialog-button-danger", { strict: true });
-      await this.page.waitForLoadState("networkidle");
+      console.log(`${new Date().toLocaleString()} Deleted App ${appId}`);
+      await this.page.waitForTimeout(1000);
     }
   }
 
