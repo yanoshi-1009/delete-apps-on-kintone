@@ -5,10 +5,13 @@ const Page = require("./Page.js");
   "use strict";
 
   try {
-    const {} = config;
-    const page = new Page();
+    const { subdomain, startId, endId } = config;
+    const page = new Page(subdomain);
 
     await page.init();
+
+    await page.login();
+    await page.deleteApps(startId, endId);
 
     await page.close();
   } catch (error) {
