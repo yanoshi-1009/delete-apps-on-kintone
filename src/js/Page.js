@@ -40,12 +40,7 @@ module.exports = class Page {
       await this.page.click(".gaia-ui-dialog-button-danger", { strict: true });
       await this.page.click(".gaia-ui-dialog-button-danger", { strict: true });
       console.log(`${new Date().toLocaleString()} Deleted App:${appId}`);
-      await this.page.waitForURL(
-        `https://${this.subdomain}.cybozu.com/k/#/portal`,
-        {
-          waitUntil: "domcontentloaded"
-        }
-      );
+      await this.page.waitForNavigation("networkidle");
     }
   }
 
