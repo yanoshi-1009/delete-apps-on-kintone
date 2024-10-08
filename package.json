@@ -14,11 +14,11 @@
   "license": "MIT",
   "description": "This is my nodejs template.",
   "devDependencies": {
-    "@cybozu/eslint-config": "22.0.0",
-    "eslint": "8.47.0",
-    "prettier": "3.0.1"
+    "@cybozu/eslint-config": "23.0.0",
+    "eslint": "9.11.1",
+    "prettier": "3.3.3"
   },
   "dependencies": {
-    "playwright-core": "^1.37.0"
+    "playwright-core": "^1.47.2"
   }
 }
